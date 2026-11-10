@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-11-10T09:00:00+09:00",
+  "equipment": [
+    {
+      "equipId": "CR001",
+      "name": "ホイスト式天井クレーン10t西南",
+      "category": "クレーン",
+      "location": { "factory": "第3工場", "line": "", "area": "西南" },
+      "maker": "サンプル製作所",
+      "model": "HC-10S",
+      "capacity": "10t",
+      "installedOn": "2008年4月",
+      "serialNo": "SN-0001",
+      "status": "稼働中",
+      "notes": "吊り具の取り付け後は、必ず玉掛け合図者を配置すること。（サンプル）",
+      "drawings": [
+        { "title": "総括図", "path": "CR001_drawing_001.pdf", "revision": "A", "updatedAt": "2026-04-01" },
+        { "title": "電気回路図", "path": "CR001_drawing_002.pdf", "revision": "B", "updatedAt": "2026-07-15" }
+      ],
+      "photos": [
+        { "title": "銘板", "path": "CR001_01.svg", "takenAt": "2026-04-01" },
+        { "title": "巻上モーター", "path": "CR001_02.svg", "takenAt": "2026-10-15" },
+        { "title": "ブレーキ交換後", "path": "CR001_03.svg", "takenAt": "2026-10-15" }
+      ]
+    },
+    {
+      "equipId": "CR002",
+      "name": "ホイスト式天井クレーン10t東北",
+      "category": "クレーン",
+      "location": { "factory": "第3工場", "line": "", "area": "東北" },
+      "maker": "サンプル製作所",
+      "model": "HC-10N",
+      "capacity": "10t",
+      "installedOn": "2008年4月",
+      "serialNo": "SN-0002",
+      "status": "稼働中",
+      "drawings": [
+        { "title": "総括図", "path": "CR002_drawing_001.pdf", "revision": "A", "updatedAt": "2026-04-01" }
+      ],
+      "photos": [
+        { "title": "銘板", "path": "CR002_01.svg", "takenAt": "2026-04-01" }
+      ]
+    },
+    {
+      "equipId": "CR003",
+      "name": "天井クレーン5t 製品置場",
+      "category": "クレーン",
+      "location": { "factory": "第2工場", "line": "", "area": "製品置場" },
+      "maker": "テスト重機",
+      "model": "OC-5T",
+      "capacity": "5t",
+      "installedOn": "1998年9月",
+      "status": "停止中",
+      "notes": "走行レールの補修待ち。使用禁止の札を掲示中。（サンプル）",
+      "drawings": [],
+      "photos": []
+    },
+    {
+      "equipId": "SL002",
+      "name": "2号スリッター リコイラー",
+      "category": "加工設備",
+      "location": { "factory": "第1工場", "line": "2号スリッターライン", "area": "出側" },
+      "maker": "サンプル機械",
+      "model": "RC-1200",
+      "installedOn": "2015年11月",
+      "status": "稼働中",
+      "drawings": [],
+      "photos": []
+    }
+  ]
+}

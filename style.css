@@ -1,0 +1,260 @@
+/* 設備保全ナビ — 現場向けスタイル
+   ライト／ダーク自動切替、片手操作（主要操作は画面下部）、大きなタップ領域 */
+
+:root {
+  --bg: #e4e8ea;
+  --card: #f6f7f7;
+  --ink: #15222c;
+  --muted: #566771;
+  --line: #c3ccd1;
+  --bar: rgba(246, 247, 247, 0.94);
+  --btn: #15222c;
+  --btn-ink: #ffffff;
+  --focus: #0b63b8;
+
+  --plate-top: #33444f;
+  --plate-bottom: #243540;
+  --plate-ink: #f2f5f6;
+  --plate-sub: #a9b9c2;
+  --stamp: #ffb52e;
+
+  --run-bg: #d3efdc;   --run-ink: #0d5a2a;
+  --stop-bg: #fbd9d4;  --stop-ink: #8f1d12;
+  --off-bg: #dde2e5;   --off-ink: #44525b;
+
+  --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+          "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1519;
+    --card: #1a242b;
+    --ink: #e8edf0;
+    --muted: #9aabb5;
+    --line: #2d3b44;
+    --bar: rgba(22, 31, 37, 0.94);
+    --btn: #e8edf0;
+    --btn-ink: #0f1519;
+    --focus: #6db3f2;
+
+    --plate-top: #2c3e49;
+    --plate-bottom: #1f2f39;
+    --plate-sub: #8fa3ae;
+
+    --run-bg: #14412a;   --run-ink: #9be3b5;
+    --stop-bg: #4a1d19;  --stop-ink: #ffb4aa;
+    --off-bg: #2a353c;   --off-ink: #b3c1ca;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- 上部バー ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 8px;
+  min-height: calc(56px + env(safe-area-inset-top, 0px));
+  padding: env(safe-area-inset-top, 0px) max(12px, env(safe-area-inset-right, 0px)) 0 max(8px, env(safe-area-inset-left, 0px));
+  background: var(--bar);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.title { margin: 0; flex: 1; min-width: 0; font-size: 19px; font-weight: 800; letter-spacing: .01em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.back {
+  display: inline-flex; align-items: center; gap: 2px;
+  min-height: 48px; padding: 0 12px 0 6px; border-radius: 12px;
+  font-weight: 700; font-size: 16px;
+}
+.back:active { background: var(--line); }
+.sync { font-size: 12px; color: var(--muted); text-align: right; line-height: 1.3; }
+.sync.is-offline { color: var(--stop-ink); font-weight: 700; }
+
+/* ---------- 本文 ---------- */
+main {
+  max-width: 600px; margin: 0 auto;
+  padding: 16px max(16px, env(safe-area-inset-right, 0px)) calc(130px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  outline: none;
+}
+.loading { color: var(--muted); text-align: center; padding: 48px 0; }
+
+.section { margin: 24px 4px 10px; font-size: 15px; font-weight: 700; color: var(--muted); }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+  padding: 16px; margin: 0 0 14px;
+}
+.card h3 { margin: 0 0 8px; font-size: 16px; }
+
+/* ---------- 検索 ---------- */
+.search input {
+  width: 100%; min-height: 56px; padding: 0 18px;
+  font: inherit; font-size: 18px; /* 16px未満だとiOSが自動ズームする */
+  color: var(--ink); background: var(--card);
+  border: 2px solid var(--line); border-radius: 16px;
+  -webkit-appearance: none; appearance: none;
+}
+.search input:focus { border-color: var(--focus); outline: none; }
+.hint { margin: 10px 4px 0; font-size: 14px; color: var(--muted); }
+
+/* ---------- 設備カード（一覧） ---------- */
+.eq-card, .doc {
+  display: flex; align-items: center; gap: 14px;
+  min-height: 76px; padding: 12px 14px; margin: 0 0 10px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+}
+.eq-card:active, .doc:active { background: var(--line); }
+.eq-id {
+  flex: none; min-width: 78px; padding: 8px 10px; text-align: center;
+  font-weight: 800; font-size: 17px; letter-spacing: .03em; font-variant-numeric: tabular-nums;
+  color: var(--stamp); background: linear-gradient(var(--plate-top), var(--plate-bottom));
+  border-radius: 8px;
+}
+.eq-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.eq-main strong { font-size: 17px; line-height: 1.35; }
+.eq-sub { font-size: 14px; color: var(--muted); line-height: 1.4; }
+.chev { flex: none; font-size: 28px; line-height: 1; color: var(--muted); }
+
+.empty { text-align: center; color: var(--muted); padding: 32px 8px; }
+.empty p { margin: 0 0 8px; }
+
+/* ---------- 設備詳細：銘板 ---------- */
+.plate {
+  position: relative; margin: 0 0 16px; padding: 22px 22px 20px;
+  color: var(--plate-ink);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 14px 14px, #0b1217 0 3px, #5d6f7a 3.5px 6px, transparent 6.5px),
+    radial-gradient(circle at calc(100% - 14px) 14px, #0b1217 0 3px, #5d6f7a 3.5px 6px, transparent 6.5px),
+    radial-gradient(circle at 14px calc(100% - 14px), #0b1217 0 3px, #5d6f7a 3.5px 6px, transparent 6.5px),
+    radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), #0b1217 0 3px, #5d6f7a 3.5px 6px, transparent 6.5px),
+    linear-gradient(165deg, var(--plate-top), var(--plate-bottom));
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.10), inset 0 0 0 5px rgba(0, 0, 0, 0.18);
+}
+.plate-label { display: block; font-size: 13px; color: var(--plate-sub); margin-bottom: 2px; }
+.plate-id {
+  display: block; margin: 0 0 14px;
+  font-size: 48px; font-weight: 900; line-height: 1.05; letter-spacing: .04em;
+  font-variant-numeric: tabular-nums; color: var(--stamp);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .45);
+}
+.plate-name { margin: 0 0 12px; font-size: 22px; font-weight: 800; line-height: 1.35; }
+
+.status {
+  display: inline-block; padding: 3px 12px; border-radius: 999px;
+  font-size: 14px; font-weight: 800;
+}
+.s-run { background: var(--run-bg); color: var(--run-ink); }
+.s-stop { background: var(--stop-bg); color: var(--stop-ink); }
+.s-off { background: var(--off-bg); color: var(--off-ink); }
+
+.specs { margin: 0; }
+.specs > div { display: grid; grid-template-columns: 6.5em 1fr; gap: 8px; padding: 10px 0; border-top: 1px solid var(--line); }
+.specs > div:first-child { border-top: 0; padding-top: 2px; }
+.specs dt { color: var(--muted); font-size: 15px; }
+.specs dd { margin: 0; font-weight: 600; word-break: break-word; }
+
+.latest { display: block; }
+.latest .r-date { font-size: 14px; color: var(--muted); }
+.latest strong { display: block; font-size: 17px; }
+.latest p { margin: 4px 0 0; font-size: 15px; color: var(--muted); }
+
+/* ---------- 下部アクションバー ---------- */
+.actions {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px;
+  max-width: 600px; margin: 0 auto;
+  padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  background: var(--bar);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--line);
+}
+.act, .big-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  min-height: 68px; padding: 8px 6px;
+  font: inherit; font-weight: 800; font-size: 16px; text-align: center;
+  color: var(--btn-ink); background: var(--btn);
+  border: 0; border-radius: 16px; cursor: pointer;
+}
+.act:active, .big-btn:active { transform: scale(0.97); }
+.act svg { display: block; }
+.act-count { font-size: 12px; font-weight: 600; opacity: .8; }
+.act.is-wide { flex-direction: row; gap: 8px; font-size: 18px; }
+
+/* ---------- 図面・資料 ---------- */
+.doc-ico {
+  flex: none; width: 52px; height: 52px; display: grid; place-items: center;
+  font-size: 13px; font-weight: 800; color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 8px;
+}
+
+/* ---------- 修理履歴 ---------- */
+.repair {
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+  margin: 0 0 10px; overflow: hidden;
+}
+.repair summary {
+  list-style: none; cursor: pointer; position: relative;
+  min-height: 72px; padding: 12px 44px 12px 16px;
+}
+.repair summary::-webkit-details-marker { display: none; }
+.repair summary::after {
+  content: "›"; position: absolute; right: 16px; top: 50%; font-size: 28px; color: var(--muted);
+  transform: translateY(-55%) rotate(90deg);
+}
+.repair[open] summary::after { transform: translateY(-45%) rotate(-90deg); }
+.repair .r-date { display: block; font-size: 14px; color: var(--muted); }
+.repair summary strong { display: block; font-size: 17px; line-height: 1.4; }
+.repair .specs { padding: 0 16px 8px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tag { padding: 1px 10px; font-size: 13px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; }
+.report-link { display: inline-block; padding: 6px 0; font-weight: 700; color: var(--focus); }
+
+/* ---------- 写真 ---------- */
+.photos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.photo {
+  padding: 0; overflow: hidden; text-align: left; font: inherit; color: inherit; cursor: pointer;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+}
+.photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--line); }
+.photo span { display: block; padding: 8px 10px 10px; font-size: 14px; font-weight: 600; line-height: 1.35; }
+
+.viewer {
+  position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  background: rgba(8, 12, 15, 0.96);
+}
+.viewer img { flex: 1; min-height: 0; width: 100%; object-fit: contain; }
+.viewer-cap { margin: 0; color: #e8edf0; font-size: 15px; text-align: center; }
+.viewer .big-btn { width: 100%; max-width: 420px; flex: none; min-height: 60px; }
+
+.notice { text-align: center; }
+.notice .big-btn { margin: 16px auto 0; max-width: 320px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .act:active, .big-btn:active { transform: none; }
+}

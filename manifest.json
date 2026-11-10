@@ -1,0 +1,17 @@
+{
+  "name": "設備保全ナビ",
+  "short_name": "設備ナビ",
+  "description": "QRコードから設備情報・図面・修理履歴を確認する現場向けナビ",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1519",
+  "theme_color": "#15222c",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

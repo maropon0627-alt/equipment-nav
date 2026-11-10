@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>設備保全ナビ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#E4E8EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1519" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="QRコードから設備情報・図面・修理履歴を確認する現場向けナビ">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="設備ナビ">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a id="back" class="back" href="#/" hidden>
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span id="back-label">戻る</span>
+    </a>
+    <h1 id="title" class="title">設備ナビ</h1>
+    <span id="sync" class="sync"></span>
+  </header>
+
+  <main id="app" tabindex="-1">
+    <p class="loading">設備データを読み込み中…</p>
+  </main>
+
+  <nav id="actions" class="actions" aria-label="設備メニュー" hidden></nav>
+
+  <div id="viewer" class="viewer" role="dialog" aria-modal="true" aria-label="写真" hidden>
+    <img id="viewer-img" alt="">
+    <p id="viewer-cap" class="viewer-cap"></p>
+    <button id="viewer-close" class="big-btn" type="button">閉じる</button>
+  </div>
+
+  <noscript><p class="loading">このアプリはJavaScriptが必要です。</p></noscript>
+  <script src="app.js"></script>
+</body>
+</html>
